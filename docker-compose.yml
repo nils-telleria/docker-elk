@@ -104,6 +104,19 @@ services:
       - elasticsearch
     restart: unless-stopped
 
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=f3b59891181642ba9aaaae3f6919a0e2
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_DATASOURCE_ELASTICSEARCH_URL=http://elasticsearch:9200
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
 networks:
   elk:
     driver: bridge
